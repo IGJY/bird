@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: bird
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.120.64.190/bird
+    username: admin
+    password: RP2e3n3Jp8exSiXH
