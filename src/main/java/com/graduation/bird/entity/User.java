@@ -28,6 +28,7 @@ public class User {
 
     private String introduction;
 
+    //TODO 枚举？
     private String gender;
 
     private String phoneNumber;
