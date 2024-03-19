@@ -17,8 +17,8 @@ public class Result<T> {
     private T data;
 
     //带参数的成功返回
-    public static <E> Result<E> success(E data) {
-        return new Result<E>(200, "success", data);
+    public static <T> Result<T> success(T data) {
+        return new Result<T>(200, "success", data);
     }
 
     //不带参数的成功返回
