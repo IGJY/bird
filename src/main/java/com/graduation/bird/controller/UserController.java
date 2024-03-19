@@ -14,7 +14,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/findById")
-    public User findById(String id) {
+    public User findById(Long id) {
         return userService.findById(id);
     }
 //    public String findById(String id) {
