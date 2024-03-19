@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import java.util.Date;
 
-//TODO 测试
 @Data
 @TableName("history_record")
 public class HistoryRecord {

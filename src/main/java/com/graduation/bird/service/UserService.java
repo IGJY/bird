@@ -2,7 +2,12 @@ package com.graduation.bird.service;
 
 import com.graduation.bird.entity.User;
 
+import java.util.List;
+
 public interface UserService {
+
+    //获取所有用户信息
+    List<User> getAllUsers();
 
     // 根据id查找用户
     User findById(Long id);

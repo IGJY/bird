@@ -7,7 +7,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-//TODO 测试表操作
 @Data
 @TableName("user")
 public class User {

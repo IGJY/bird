@@ -3,8 +3,14 @@ package com.graduation.bird.mapper;
 import com.graduation.bird.entity.User;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
+
+    //获取所有用户信息
+    @Select("select * from user")
+    List<User> getAllUsers();
 
     //根据id查询用户
     @Select("select * from user where id = #{id}")

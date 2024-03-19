@@ -9,12 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    //获取所有用户信息
+    //TODO 测试
+    @PostMapping("/getAllUsers")
+    public Result<List<User>> getAllUsers() {
+        return Result.success(userService.getAllUsers());
+    }
 
     //根据id查找用户
     @PostMapping("/findById")
@@ -26,6 +35,7 @@ public class UserController {
 //    }
 
     //根据uid查找用户
+    //TODO 测试
     @PostMapping("/findByUID")
     public Result<User> findByUID(String UID) {
         return Result.success(userService.findByUID(UID));
@@ -49,6 +59,7 @@ public class UserController {
     }
 
     //根据UID删除用户
+    //TODO 测试
     @PostMapping("/deleteUserByUID")
     public Result deleteUserByUID(String UID) {
         return Result.success(userService.deleteUserByUID(UID));
@@ -60,7 +71,8 @@ public class UserController {
         return Result.success(userService.deleteUserByPhoneNumber(phoneNumber));
     }
 
-    //根据UID更新用户
+    //更新用户
+    //TODO 测试
     @PostMapping("/updateUser")
     public Result updateUser(User user) {
         return Result.success(userService.updateUser(user));
