@@ -62,7 +62,7 @@ public class UserController {
 
     //根据UID删除用户
     //TODO 测试
-    @PostMapping("/deleteUserByUID")
+    //@PostMapping("/deleteUserByUID")
     public Result deleteUserByUID(String UID) {
         return Result.success(userService.deleteUserByUID(UID));
     }
