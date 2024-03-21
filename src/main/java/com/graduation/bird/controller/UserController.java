@@ -22,7 +22,6 @@ public class UserController {
     private UserService userService;
 
     //获取所有用户信息
-    //TODO 测试
     @PostMapping("/getAllUsers")
     public Result<List<User>> getAllUsers() {
         return Result.success(userService.getAllUsers());

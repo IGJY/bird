@@ -18,7 +18,8 @@ public class BirdsController {
     private BirdsService birdsService;
 
     //获取所有鸟类信息
-    @PostMapping("getAllBirds")
+    //TODO 测试
+    @PostMapping("/getAllBirds")
     public Result<List<Birds>> getAllBirds()
     {
         return Result.success(birdsService.getAllBirds());
