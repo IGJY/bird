@@ -94,6 +94,8 @@ public class UserServiceImpl implements UserService {
     public Result updateUser(User user) {
 
         User originalUser = findByUID(user.getUID());
+
+        //判断用户是否存在
         if (originalUser == null) {
 
             originalUser = findByPhoneNumber(user.getPhoneNumber());
@@ -105,8 +107,16 @@ public class UserServiceImpl implements UserService {
             }
         }
 
+        //如果用户有修改密码则对密码进行MD5加密
+        if (user.getPassword() != null) {
+
+            user.setPassword(MD5Utils.encrypt(user.getPassword()));
+
+        }
+
         // 使用工具类合并对象
         User mergedUser = MergeUtil.mergeObjects(originalUser, user);
+
         return Result.success(userMapper.updateUser(mergedUser));
 
     }
