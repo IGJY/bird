@@ -61,7 +61,6 @@ public class UserController {
     }
 
     //注册
-    //TODO 测试
     @PostMapping("/register")
     public Result register(@Valid User user) {
         return userService.register(user);
@@ -81,7 +80,6 @@ public class UserController {
     }
 
     //更新用户
-    //TODO 测试
     @PostMapping("/updateUser")
     public Result updateUser(User user) {
         return userService.updateUser(user);
