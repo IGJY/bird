@@ -5,6 +5,7 @@ import com.graduation.bird.entity.User;
 import com.graduation.bird.mapper.UserMapper;
 import com.graduation.bird.service.UserService;
 import com.graduation.bird.utils.MD5Utils;
+import com.graduation.bird.utils.MergeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,8 +91,24 @@ public class UserServiceImpl implements UserService {
 
     // 根据UID更新用户
     @Override
-    public Boolean updateUser(User user) {
-        return userMapper.updateUser(user);
+    public Result updateUser(User user) {
+
+        User originalUser = findByUID(user.getUID());
+        if (originalUser == null) {
+
+            originalUser = findByPhoneNumber(user.getPhoneNumber());
+
+            if (originalUser == null) {
+
+                return Result.error("用户不存在");
+
+            }
+        }
+
+        // 使用工具类合并对象
+        User mergedUser = MergeUtil.mergeObjects(originalUser, user);
+        return Result.success(userMapper.updateUser(mergedUser));
+
     }
 
 }

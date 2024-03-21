@@ -32,6 +32,6 @@ public interface UserService {
     Boolean deleteUserByPhoneNumber(String phoneNumber);
 
     // 根据UID更新用户
-    Boolean updateUser(User user);
+    Result updateUser(User user);
 
 }
