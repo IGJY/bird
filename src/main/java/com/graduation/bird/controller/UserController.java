@@ -37,7 +37,6 @@ public class UserController {
 //    }
 
     //根据uid查找用户
-    //TODO 测试
     @PostMapping("/findByUID")
     public Result<User> findByUID(String UID) {
         return Result.success(userService.findByUID(UID));
