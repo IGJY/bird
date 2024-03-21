@@ -3,6 +3,7 @@ package com.graduation.bird.controller;
 import com.graduation.bird.entity.Result;
 import com.graduation.bird.entity.User;
 import com.graduation.bird.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +52,7 @@ public class UserController {
 
     //添加用户(注册)
     @PostMapping("/addUser")
-    public Result addUser(User user) {
+    public Result addUser(@Valid User user) {
         //根据手机号判断用户是否已存在，如果存在则返回用户已存在
         if (userService.findByPhoneNumber(user.getPhoneNumber()) != null) {
             return Result.error("用户已存在");
