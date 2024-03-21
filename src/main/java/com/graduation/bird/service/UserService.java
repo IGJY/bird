@@ -1,5 +1,6 @@
 package com.graduation.bird.service;
 
+import com.graduation.bird.entity.Result;
 import com.graduation.bird.entity.User;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public interface UserService {
 
     // 添加用户
     Boolean  addUser(User user);
+
+    //注册
+    Result register(User user);
 
     // 根据UID删除用户
     Boolean deleteUserByUID(String UID);

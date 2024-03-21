@@ -1,5 +1,6 @@
 package com.graduation.bird.service.impl;
 
+import com.graduation.bird.entity.Result;
 import com.graduation.bird.entity.User;
 import com.graduation.bird.mapper.UserMapper;
 import com.graduation.bird.service.UserService;
@@ -50,6 +51,29 @@ public class UserServiceImpl implements UserService {
         user.setUID(UUID.randomUUID().toString().replace("-", ""));
 
         return userMapper.addUser(user);
+    }
+
+    //注册
+    @Override
+    public Result register(User user) {
+
+        //根据手机号判断用户是否已存在，如果存在则返回用户已存在
+        if (findByPhoneNumber(user.getPhoneNumber()) != null) {
+
+            return Result.error("用户已存在");
+
+        } else {
+
+            // 对密码进行MD5加密
+            user.setPassword(MD5Utils.encrypt(user.getPassword()));
+
+            //使用UUID自动生成唯一UID
+            user.setUID(UUID.randomUUID().toString().replace("-", ""));
+
+            return Result.success(userMapper.addUser(user));
+
+        }
+
     }
 
     // 根据UID删除用户

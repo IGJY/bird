@@ -49,8 +49,8 @@ public class UserController {
         return Result.success(userService.findByPhoneNumber(phoneNumber));
     }
 
-    //添加用户(注册)
-    @PostMapping("/addUser")
+    //添加用户
+    //@PostMapping("/addUser")
     public Result addUser(@Valid User user) {
         //根据手机号判断用户是否已存在，如果存在则返回用户已存在
         if (userService.findByPhoneNumber(user.getPhoneNumber()) != null) {
@@ -58,6 +58,12 @@ public class UserController {
         } else {
             return Result.success(userService.addUser(user));
         }
+    }
+
+    //注册
+    @PostMapping("/register")
+    public Result register(@Valid User user) {
+        return userService.register(user);
     }
 
     //根据UID删除用户
