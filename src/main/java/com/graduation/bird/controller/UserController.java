@@ -3,6 +3,7 @@ package com.graduation.bird.controller;
 import com.graduation.bird.entity.Result;
 import com.graduation.bird.entity.User;
 import com.graduation.bird.service.UserService;
+import com.graduation.bird.utils.MergeUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -73,10 +74,20 @@ public class UserController {
     }
 
     //更新用户
-    //TODO 测试
     @PostMapping("/updateUser")
     public Result updateUser(User user) {
-        return Result.success(userService.updateUser(user));
+        User originalUser = userService.findByUID(user.getUID());
+        if (originalUser == null) {
+            originalUser = userService.findByPhoneNumber(user.getPhoneNumber());
+            if (originalUser == null) {
+                return Result.error("用户不存在");
+            }
+        }
+
+        // 使用工具类合并对象
+        User mergedUser = MergeUtil.mergeObjects(originalUser, user);
+
+        return Result.success(userService.updateUser(mergedUser));
     }
 
 }
