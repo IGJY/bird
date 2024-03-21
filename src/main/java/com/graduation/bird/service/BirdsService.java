@@ -1,6 +1,7 @@
 package com.graduation.bird.service;
 
 import com.graduation.bird.entity.Birds;
+import com.graduation.bird.entity.Result;
 
 import java.util.List;
 
@@ -19,6 +20,6 @@ public interface BirdsService {
     Boolean deleteBirds(Long id);
 
     //更新鸟类
-    Boolean updateBirds(Birds birds);
+    Result updateBirds(Birds birds);
 
 }

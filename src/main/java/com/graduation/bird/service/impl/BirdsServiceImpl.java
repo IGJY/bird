@@ -1,8 +1,10 @@
 package com.graduation.bird.service.impl;
 
 import com.graduation.bird.entity.Birds;
+import com.graduation.bird.entity.Result;
 import com.graduation.bird.mapper.BirdsMapper;
 import com.graduation.bird.service.BirdsService;
+import com.graduation.bird.utils.MergeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +46,22 @@ public class BirdsServiceImpl implements BirdsService {
 
     @Override
     //更新 birds信息
-    public Boolean updateBirds(Birds birds)
+    public Result updateBirds(Birds birds)
     {
-        return birdsMapper.updateBirds(birds);
+        //判断是否能够找到该鸟类
+        Birds oldBirds = getBirdsById(birds.getId());
+        if (oldBirds == null)
+        {
+            return Result.error("该 birds信息不存在");
+
+        }else {
+
+            //利用工具类进行合并
+            birds = MergeUtil.mergeObjects(oldBirds,birds);
+
+            return Result.success(birdsMapper.updateBirds(birds));
+        }
+
     }
 
 }

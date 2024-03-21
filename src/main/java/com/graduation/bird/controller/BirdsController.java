@@ -18,11 +18,38 @@ public class BirdsController {
     private BirdsService birdsService;
 
     //获取所有鸟类信息
-    //TODO 测试
     @PostMapping("/getAllBirds")
     public Result<List<Birds>> getAllBirds()
     {
         return Result.success(birdsService.getAllBirds());
+    }
+
+    //根据id获取 birds信息
+    @PostMapping("/getBirdsById")
+    public Result<Birds> getBirdsById(Long id)
+    {
+        return Result.success(birdsService.getBirdsById(id));
+    }
+
+    //添加鸟类
+    @PostMapping("/addBirds")
+    public Result addBirds(Birds birds)
+    {
+        return Result.success(birdsService.addBirds(birds));
+    }
+
+    //删除鸟类
+    @PostMapping("/deleteBirds")
+    public Result deleteBirds(Long id)
+    {
+        return Result.success(birdsService.deleteBirds(id));
+    }
+
+    //更新 birds信息
+    @PostMapping("/updateBirds")
+    public Result updateBirds(Birds birds)
+    {
+        return birdsService.updateBirds(birds);
     }
 
 }
