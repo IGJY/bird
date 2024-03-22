@@ -15,9 +15,9 @@ public interface CollectionMapper {
     @Select("select * from collection")
     List<Collection> getAllCollection();
 
-    //根据用户id查询所有收藏
+    //根据用户UID查询所有收藏
     @Select("select * from collection where UID = #{UID}")
-    List<Collection> getAllCollectionByUserId(Long userId);
+    List<Collection> getAllCollectionByUID(String UID);
 
     //添加收藏
     @Insert("INSERT INTO collection (UID, bird_id, bird_url) VALUES (#{UID}, #{birdId}, #{birdUrl})")

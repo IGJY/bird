@@ -15,7 +15,7 @@ public class HistoryRecord {
     private Integer id;
 
     //用户id
-    private Integer UID;
+    private String UID;
 
     //时间
     private Date actionTime;

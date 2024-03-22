@@ -16,10 +16,10 @@ public class Collection {
     private int id;
 
     //用户id
-    private int UID;
+    private String UID;
 
     //鸟id
-    private int birdId;
+    private Long birdId;
 
     //鸟类url
     private String birdUrl;
