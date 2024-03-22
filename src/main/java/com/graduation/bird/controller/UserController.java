@@ -85,4 +85,10 @@ public class UserController {
         return userService.updateUser(user);
     }
 
+    //登录
+    @PostMapping("/login")
+    public Result login(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("password") String password) {
+        return userService.login(phoneNumber, password);
+    }
+
 }

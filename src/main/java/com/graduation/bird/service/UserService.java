@@ -34,4 +34,7 @@ public interface UserService {
     // 根据UID更新用户
     Result updateUser(User user);
 
+    //登录
+    Result login(String phoneNumber, String password);
+
 }

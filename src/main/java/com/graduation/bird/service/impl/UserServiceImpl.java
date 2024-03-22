@@ -4,12 +4,15 @@ import com.graduation.bird.entity.Result;
 import com.graduation.bird.entity.User;
 import com.graduation.bird.mapper.UserMapper;
 import com.graduation.bird.service.UserService;
+import com.graduation.bird.utils.JwtUtil;
 import com.graduation.bird.utils.MD5Utils;
 import com.graduation.bird.utils.MergeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -118,6 +121,41 @@ public class UserServiceImpl implements UserService {
         User mergedUser = MergeUtil.mergeObjects(originalUser, user);
 
         return Result.success(userMapper.updateUser(mergedUser));
+
+    }
+
+    //登录
+    @Override
+    public Result login(String phoneNumber, String password) {
+
+        //判断手机号和密码是否为空
+        if (phoneNumber == null || password == null) {
+
+            return Result.error("手机号或密码不能为空");
+
+        } else {
+
+            //根据手机号获取用户
+            User user = findByPhoneNumber(phoneNumber);
+
+            if (user == null) {
+
+                return Result.error("用户不存在");
+
+            } else {
+
+                if (user.getPassword().equals(MD5Utils.encrypt(password))) {
+
+                    //使用工具类生成token
+                    Map<String, Object> claims = new HashMap<>();
+                    claims.put("phoneNumber", user.getPhoneNumber());
+                    claims.put("UID", user.getUID());
+                    return Result.success(JwtUtil.genToken(claims));
+
+                }
+                return Result.error("密码错误");
+            }
+        }
 
     }
 
