@@ -16,6 +16,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         //TODO 考虑一下哪些需要拦截
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/collection/getAllCollectionByUID");
+        registry.addInterceptor(loginInterceptor).excludePathPatterns(
+                "/user/login",
+                "/user/register",
+                "/birds/*"
+        );
+
     }
 }
