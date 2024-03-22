@@ -20,12 +20,12 @@ public class JwtUtil {
     }
 
     //接收token,验证token,并返回业务数据
-    public static Map<String, Object> parseToken(String token) {
+    public static Map<String, Object> parseToken(String token) throws Exception{
         try {
             return JWT.decode(token).getClaim("claims").asMap();
         } catch (Exception e) {
             //TODO 这里要抛什么类型的异常
-            throw new  RuntimeException("token解析失败");
+            throw new Exception("token解析失败");
         }
     }
 
