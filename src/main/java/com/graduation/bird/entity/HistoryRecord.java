@@ -14,7 +14,7 @@ public class HistoryRecord {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    //用户id
+    //UID
     private String UID;
 
     //时间

@@ -15,9 +15,9 @@ public interface HistoryRecordMapper {
     @Select("select * from history_record")
     List<HistoryRecord> getAllHistoryRecord();
 
-    // 根据用户ID查询历史记录
+    // 根据UID查询历史记录
     @Select("select * from history_record where UID = #{UID}")
-    List<HistoryRecord> getAllHistoryRecordByUserId(Long userId);
+    List<HistoryRecord> getAllHistoryRecordByUID(String UID);
 
     // 添加历史记录
     @Insert("INSERT INTO history_record (UID, action_time, action, result, bird_url) VALUES (#{UID}, now(), #{action}, #{result}, #{birdUrl})")

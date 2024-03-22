@@ -18,28 +18,24 @@ public class CollectionController {
     private CollectionService collectionService;
 
     //获取所有收藏信息
-    //TODO 测试
     @PostMapping("/getAllCollection")
     public Result<List<Collection>> getAllCollection() {
         return Result.success(collectionService.getAllCollection());
     }
 
     //根据UID获取所有收藏信息
-    //TODO 测试
     @PostMapping("/getAllCollectionByUID")
     public Result<List<Collection>> getAllCollectionByUID(String UID) {
         return Result.success(collectionService.getAllCollectionByUID(UID));
     }
 
     //添加收藏信息
-    //TODO 测试
     @PostMapping("/addCollection")
     public Result addCollection(Collection collection) {
         return Result.success(collectionService.addCollection(collection));
     }
 
     //删除收藏信息
-    //TODO 测试
     @PostMapping("/deleteCollection")
     public Result deleteCollection(String UID, Long birdId) {
         return Result.success(collectionService.deleteCollection(UID, birdId));
