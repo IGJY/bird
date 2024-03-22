@@ -14,6 +14,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
+        //确保有token并且token没有被修改过
         if(token == null || token.equals("")){
             response.getWriter().write("token is null");
             response.setStatus(401);
