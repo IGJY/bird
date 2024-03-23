@@ -32,7 +32,7 @@ public interface UserService {
     Boolean deleteUserByPhoneNumber(String phoneNumber);
 
     // 根据UID更新用户
-    Result updateUser(User user);
+    Result updateUser(User user, String oldPassword);
 
     //登录
     Result login(String phoneNumber, String password);

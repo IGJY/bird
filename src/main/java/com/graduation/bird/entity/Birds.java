@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.Date;
 
@@ -34,9 +35,11 @@ public class Birds {
     private String species;
 
     //图片
+    @URL
     private String imageUrl;
 
     //叫声
+    @URL
     private String soundUrl;
 
     //基本介绍

@@ -81,8 +81,8 @@ public class UserController {
 
     //更新用户
     @PostMapping("/updateUser")
-    public Result updateUser(User user) {
-        return userService.updateUser(user);
+    public Result updateUser(User user, String oldPassword) {
+        return userService.updateUser(user, oldPassword);
     }
 
     //登录

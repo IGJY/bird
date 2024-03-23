@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 
     // 根据UID更新用户
     @Override
-    public Result updateUser(User user) {
+    public Result updateUser(User user, String oldPassword) {
 
         User originalUser = findByUID(user.getUID());
 
@@ -110,9 +110,18 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        //如果用户有修改密码则对密码进行MD5加密
-        if (user.getPassword() != null) {
+        //如果用户有修改密码
+        if (user.getPassword() != null && oldPassword != null) {
 
+            //验证旧密码是否正确
+            //TODO 测试
+            if (!originalUser.getPassword().equals(MD5Utils.encrypt(oldPassword))) {
+
+                return Result.error("密码错误");
+
+            }
+
+            //对新密码进行MD5加密
             user.setPassword(MD5Utils.encrypt(user.getPassword()));
 
         }
