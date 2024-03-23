@@ -1,6 +1,7 @@
 package com.graduation.bird.interceptors;
 
 import com.graduation.bird.utils.JwtUtil;
+import com.graduation.bird.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             try{
 
                 Map<String, Object> claims = JwtUtil.parseToken(token);
+
+                //使用ThreadLocalUtil来保存token中的用户信息
+                ThreadLocalUtil.set(claims);
+
                 return true;
 
             }catch (Exception e){
@@ -35,4 +40,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        // 清空ThreadLocalUtil中的数据
+        ThreadLocalUtil.remove();
+    }
 }
