@@ -4,6 +4,7 @@ import com.graduation.bird.entity.Birds;
 import com.graduation.bird.entity.Result;
 import com.graduation.bird.service.BirdsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class BirdsController {
 
     //添加鸟类
     @PostMapping("/addBirds")
-    public Result addBirds(Birds birds)
+    public Result addBirds(@Validated Birds birds)
     {
         return Result.success(birdsService.addBirds(birds));
     }
@@ -47,7 +48,7 @@ public class BirdsController {
 
     //更新 birds信息
     @PostMapping("/updateBirds")
-    public Result updateBirds(Birds birds)
+    public Result updateBirds(@Validated(Birds.Update.class) Birds birds)
     {
         return birdsService.updateBirds(birds);
     }

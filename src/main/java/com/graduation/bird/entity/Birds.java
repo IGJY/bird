@@ -3,6 +3,8 @@ package com.graduation.bird.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.groups.Default;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
@@ -14,6 +16,7 @@ public class Birds {
 
     //鸟类id
     @TableId(type = IdType.AUTO)
+    @NotBlank(message = "id不能为空", groups = {Update.class})
     private Long id;
 
     //创建时间
@@ -26,6 +29,7 @@ public class Birds {
     private String morphologyAndFeatures;
 
     //名字
+    @NotBlank(message = "名字不能为空")
     private String name;
 
     //生活习性
@@ -35,11 +39,13 @@ public class Birds {
     private String species;
 
     //图片
-    @URL
+    //TODO 测试用，暂时删除@URL注解
+//    @URL
     private String imageUrl;
 
     //叫声
-    @URL
+    //TODO 测试用，暂时删除@URL注解
+//    @URL
     private String soundUrl;
 
     //基本介绍
@@ -47,6 +53,10 @@ public class Birds {
 
     //生长与分布
     private String growthAndDistribution;
+
+    public interface Update extends Default {
+
+    }
 
 
 }
