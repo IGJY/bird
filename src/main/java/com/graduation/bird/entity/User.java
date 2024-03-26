@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.graduation.bird.anno.UserType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -23,7 +24,8 @@ public class User {
 
     private Date updateTime;
 
-    private Integer userType;
+    @UserType
+    private String userType;
 
     @NotBlank(message = "密码不能为空")
     @Pattern(regexp = "^[a-zA-Z0-9]{6,18}$", message = "密码必须为6-18位的字母或数字")
