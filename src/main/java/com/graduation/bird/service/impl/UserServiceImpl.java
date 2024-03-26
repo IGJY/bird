@@ -108,10 +108,18 @@ public class UserServiceImpl implements UserService {
                 return Result.error("用户不存在");
 
             }
+
         }
 
         //如果用户有修改密码
-        if (user.getPassword() != null && oldPassword != null) {
+        if (user.getPassword() != null) {
+
+            //如果有了新密码就一定要输入旧密码
+            if (oldPassword == null) {
+
+                return Result.error("请填写密码");
+
+            }
 
             //验证旧密码是否正确
             //TODO 测试
