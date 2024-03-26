@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface UserType {
 
     //校验失败后的提示信息
-    String message() default "用户类型不合法，只能是admin|user";
+    String message() default "userType参数不合法，只能是admin|user";
 
     //指定分组
     Class<?>[] groups() default {};
