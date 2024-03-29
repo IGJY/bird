@@ -1,6 +1,9 @@
 package com.graduation.bird.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.graduation.bird.entity.Birds;
+import com.graduation.bird.entity.PageBean;
 import com.graduation.bird.entity.Result;
 import com.graduation.bird.mapper.BirdsMapper;
 import com.graduation.bird.service.BirdsService;
@@ -61,6 +64,26 @@ public class BirdsServiceImpl implements BirdsService {
 
             return Result.success(birdsMapper.updateBirds(birds));
         }
+
+    }
+
+    @Override
+    public Result<PageBean<Birds>> getBirdsByPage(int pageNum, int pageSize, String name) {
+        //创建pagebean对象
+        PageBean<Birds> pageBean = new PageBean<>();
+
+        //开启分页查询 PageHelper
+        PageHelper.startPage(pageNum,pageSize);
+
+        //调用mapper
+        List<Birds> birdsList = birdsMapper.getBirdsByPage(pageSize, (pageNum - 1) * pageSize,name);
+        Page<Birds> page = (Page<Birds>) birdsList;
+
+        //把数据填充到pageBean
+        pageBean.setTotal(page.getTotal());
+        pageBean.setItems(page.getResult());
+
+        return  Result.success(pageBean);
 
     }
 

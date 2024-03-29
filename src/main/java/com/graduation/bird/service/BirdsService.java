@@ -1,6 +1,7 @@
 package com.graduation.bird.service;
 
 import com.graduation.bird.entity.Birds;
+import com.graduation.bird.entity.PageBean;
 import com.graduation.bird.entity.Result;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface BirdsService {
     //更新鸟类
     Result updateBirds(Birds birds);
 
+    //分页查询鸟类信息
+    Result<PageBean<Birds>> getBirdsByPage(int pageNum, int pageSize, String name);
 }

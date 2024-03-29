@@ -28,4 +28,5 @@ public interface BirdsMapper {
     @Update("UPDATE birds SET updated_at=now(), morphology_and_features=#{morphologyAndFeatures}, name=#{name}, habits=#{habits}, species=#{species}, image_url=#{imageUrl}, sound_url=#{soundUrl}, description=#{description}, growth_and_distribution=#{growthAndDistribution} WHERE id=#{id}")
     Boolean updateBirds(Birds birds);
 
+    List<Birds> getBirdsByPage(int pageSize,int offset, String name);
 }

@@ -1,13 +1,12 @@
 package com.graduation.bird.controller;
 
 import com.graduation.bird.entity.Birds;
+import com.graduation.bird.entity.PageBean;
 import com.graduation.bird.entity.Result;
 import com.graduation.bird.service.BirdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,6 +50,19 @@ public class BirdsController {
     public Result updateBirds(@Validated(Birds.Update.class) Birds birds)
     {
         return birdsService.updateBirds(birds);
+    }
+
+    //分页查询鸟类信息
+    @PostMapping ("/getBirdsByPage")
+    public Result<PageBean<Birds>> getBirdsByPage(
+            int pageNum,
+            int pageSize,
+            @RequestParam(required = false) String name
+    )
+    {
+//        System.out.println(pageNum);
+//        System.out.println(pageSize);
+        return birdsService.getBirdsByPage(pageNum,pageSize,name);
     }
 
 }
