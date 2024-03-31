@@ -7,10 +7,7 @@ import com.graduation.bird.utils.MergeUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -81,8 +78,8 @@ public class UserController {
 
     //更新用户
     @PostMapping("/updateUser")
-    public Result updateUser(User user, String oldPassword) {
-        return userService.updateUser(user, oldPassword);
+    public Result updateUser(User user, String oldPassword,@RequestHeader("token") String token) {
+        return userService.updateUser(user, oldPassword, token);
     }
 
     //登录

@@ -7,3 +7,8 @@ spring:
     url: jdbc:mysql://47.120.64.190/bird
     username: admin
     password: RP2e3n3Jp8exSiXH
+
+  data:
+    redis:
+      host: localhost
+      port: 6379

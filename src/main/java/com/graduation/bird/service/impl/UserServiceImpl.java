@@ -8,18 +8,23 @@ import com.graduation.bird.utils.JwtUtil;
 import com.graduation.bird.utils.MD5Utils;
 import com.graduation.bird.utils.MergeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     //获取所有用户信息
     @Override
@@ -94,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
     // 根据UID更新用户
     @Override
-    public Result updateUser(User user, String oldPassword) {
+    public Result updateUser(User user, String oldPassword, String token) {
 
         User originalUser = findByUID(user.getUID());
 
@@ -137,7 +142,18 @@ public class UserServiceImpl implements UserService {
         // 使用工具类合并对象
         User mergedUser = MergeUtil.mergeObjects(originalUser, user);
 
-        return Result.success(userMapper.updateUser(mergedUser));
+        //更新用户信息
+        Boolean isUpdated = userMapper.updateUser(mergedUser);
+
+        //如果更新成功就把之前的旧token给删掉
+        if (isUpdated) {
+
+            stringRedisTemplate.delete(token);
+            System.out.println("old token删除成功");
+
+        }
+
+        return Result.success(isUpdated);
 
     }
 
@@ -167,7 +183,13 @@ public class UserServiceImpl implements UserService {
                     Map<String, Object> claims = new HashMap<>();
                     claims.put("phoneNumber", user.getPhoneNumber());
                     claims.put("UID", user.getUID());
-                    return Result.success(JwtUtil.genToken(claims));
+                    String token = JwtUtil.genToken(claims);
+
+                    //把token存储到redis中,过期时间为3个小时
+                    //直接既已token为key，也以token为value，这样在拦截器中就只判断能不能获取到就可以了
+                    stringRedisTemplate.opsForValue().set(token, token, 3, TimeUnit.HOURS);
+
+                    return Result.success(token);
 
                 }
                 return Result.error("密码错误");
