@@ -1,0 +1,17 @@
+#生产环境
+spring:
+  application:
+    name: bird
+
+  #TODO 到时候生产环境是不是换一个新的数据库好一点
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.120.64.190/bird
+    username: admin
+    password: RP2e3n3Jp8exSiXH
+
+  #TODO 了解一下redis，并且要使用服务器上的redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
