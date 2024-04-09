@@ -24,7 +24,8 @@ public class User {
 
     private Date updateTime;
 
-    @UserType
+//    TODO 加上这个的话会出现注册的时候没有传入userType导致的失败
+//    @UserType
     private String userType;
 
     @NotBlank(message = "密码不能为空")

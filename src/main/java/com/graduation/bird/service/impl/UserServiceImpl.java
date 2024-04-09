@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.addUser(user);
     }
 
-    //注册
+    //注册（默认为用户注册，管理员注册需要手动修改权限）
     @Override
     public Result register(User user) {
 
@@ -78,6 +78,9 @@ public class UserServiceImpl implements UserService {
 
             //使用UUID自动生成唯一UID
             user.setUID(UUID.randomUUID().toString().replace("-", ""));
+
+            //设置userType为user
+            user.setUserType("user");
 
             return Result.success(userMapper.addUser(user));
 
