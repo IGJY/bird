@@ -51,6 +51,9 @@ public class BirdsServiceImpl implements BirdsService {
     //更新 birds信息
     public Result updateBirds(Birds birds)
     {
+        //输出看一下
+//        System.out.println(birds);
+
         //判断是否能够找到该鸟类
         Birds oldBirds = getBirdsById(birds.getId());
         if (oldBirds == null)

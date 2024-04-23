@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
@@ -16,7 +17,7 @@ public class Birds {
 
     //鸟类id
     @TableId(type = IdType.AUTO)
-    @NotBlank(message = "id不能为空", groups = {Update.class})
+    @NotNull(message = "id不能为空", groups = {Update.class})
     private Long id;
 
     //创建时间
