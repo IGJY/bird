@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
             //使用UUID自动生成唯一UID
             user.setUID(UUID.randomUUID().toString().replace("-", ""));
 
-            //设置userType为user
+            //默认设置userType为user
             user.setUserType("user");
 
             return Result.success(userMapper.addUser(user));
@@ -103,6 +103,9 @@ public class UserServiceImpl implements UserService {
     // 根据UID更新用户
     @Override
     public Result updateUser(User user, String oldPassword, String token) {
+
+        //把用户输出来看一下
+//        System.out.println(user);
 
         User originalUser = findByUID(user.getUID());
 
@@ -149,7 +152,8 @@ public class UserServiceImpl implements UserService {
         Boolean isUpdated = userMapper.updateUser(mergedUser);
 
         //如果更新成功就把之前的旧token给删掉
-        if (isUpdated) {
+        //改了密码才要重新登录
+        if (isUpdated && user.getPassword() != null) {
 
             stringRedisTemplate.delete(token);
             System.out.println("old token删除成功");
@@ -198,6 +202,16 @@ public class UserServiceImpl implements UserService {
                 return Result.error("密码错误");
             }
         }
+
+    }
+
+    @Override
+    public User findByToken(Map<String, Object> claims) {
+
+        //claims
+        String phoneNumber = (String) claims.get("phoneNumber");
+//        System.out.println("phoneNumber:" + phoneNumber);
+        return findByPhoneNumber(phoneNumber);
 
     }
 

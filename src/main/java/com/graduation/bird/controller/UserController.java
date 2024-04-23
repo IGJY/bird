@@ -4,6 +4,7 @@ import com.graduation.bird.entity.Result;
 import com.graduation.bird.entity.User;
 import com.graduation.bird.service.UserService;
 import com.graduation.bird.utils.MergeUtil;
+import com.graduation.bird.utils.ThreadLocalUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -44,6 +45,14 @@ public class UserController {
     @PostMapping("/findByPhoneNumber")
     public Result<User> findByPhoneNumber(String phoneNumber) {
         return Result.success(userService.findByPhoneNumber(phoneNumber));
+    }
+
+    //根据token来查找用户（token中包含phonenumber和UID）
+    @PostMapping("/findByToken")
+    public Result findByToken() {
+
+        return Result.success(userService.findByToken(ThreadLocalUtil.get()));
+
     }
 
     //添加用户
