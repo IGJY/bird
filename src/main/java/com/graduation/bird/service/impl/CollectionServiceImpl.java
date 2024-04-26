@@ -46,4 +46,9 @@ public class CollectionServiceImpl implements CollectionService {
         return collectionMapper.deleteCollection(UID, birdId);
     }
 
+    @Override
+    public Collection getCollectionById(Long id) {
+        return collectionMapper.getCollectionById(id);
+    }
+
 }

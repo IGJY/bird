@@ -18,4 +18,5 @@ public interface CollectionService {
     //删除收藏信息
     Boolean deleteCollection(String UID, Long birdId);
 
+    Collection getCollectionById(Long id);
 }

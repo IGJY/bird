@@ -27,4 +27,7 @@ public interface CollectionMapper {
     @Delete("DELETE FROM collection WHERE UID = #{UID} AND bird_id = #{birdId}")
     Boolean deleteCollection(String UID, Long birdId);
 
+    //根据id查询收藏
+    @Select("select * from collection where id = #{id}")
+    Collection getCollectionById(Long id);
 }

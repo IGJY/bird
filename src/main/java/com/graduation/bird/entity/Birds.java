@@ -30,7 +30,7 @@ public class Birds {
     private String morphologyAndFeatures;
 
     //名字
-    @NotBlank(message = "名字不能为空")
+    @NotBlank(message = "名字不能为空", groups = {Add.class})
     private String name;
 
     //生活习性
@@ -56,6 +56,11 @@ public class Birds {
     private String growthAndDistribution;
 
     public interface Update extends Default {
+
+    }
+
+    //添加时的检验
+    public interface Add extends Default {
 
     }
 

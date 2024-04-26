@@ -16,7 +16,6 @@ public class FileUploadController {
     @PostMapping("/upload")
     public Result<String> uploadFile(MultipartFile file) throws Exception {
 
-        //把文件的内容存储到本地磁盘上
         String fileName = file.getOriginalFilename();
 
         //利用UUID保证文件的名字是唯一的，防止覆盖

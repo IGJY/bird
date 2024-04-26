@@ -33,7 +33,7 @@ public class BirdsController {
 
     //添加鸟类
     @PostMapping("/addBirds")
-    public Result addBirds(@Validated Birds birds)
+    public Result addBirds(@Validated(Birds.Add.class) Birds birds)
     {
         return Result.success(birdsService.addBirds(birds));
     }
