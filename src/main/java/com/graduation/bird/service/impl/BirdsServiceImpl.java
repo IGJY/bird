@@ -90,4 +90,9 @@ public class BirdsServiceImpl implements BirdsService {
 
     }
 
+    @Override
+    public Birds getBirdsByName(String name) {
+        return birdsMapper.getBirdsByName(name);
+    }
+
 }

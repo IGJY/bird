@@ -25,4 +25,6 @@ public interface BirdsService {
 
     //分页查询鸟类信息
     Result<PageBean<Birds>> getBirdsByPage(int pageNum, int pageSize, String name);
+
+    Birds getBirdsByName(String name);
 }

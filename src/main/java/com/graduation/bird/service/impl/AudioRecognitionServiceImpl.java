@@ -31,6 +31,9 @@ public class AudioRecognitionServiceImpl implements AudioRecognitionService {
     @Override
     public String recognizeAudio(MultipartFile file) throws IOException {
 
+        //如果能够接收到文件就打印一下
+//        System.out.println("接收到文件：" + file.getOriginalFilename());
+
         // 将 MultipartFile 转换为 File
         File tempFile = convertMultipartFileToFile(file);
 

@@ -29,4 +29,7 @@ public interface BirdsMapper {
     Boolean updateBirds(Birds birds);
 
     List<Birds> getBirdsByPage(int pageSize,int offset, String name);
+
+    @Select("select * from birds where name = #{name}")
+    Birds getBirdsByName(String name);
 }

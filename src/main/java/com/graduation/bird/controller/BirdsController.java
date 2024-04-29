@@ -31,6 +31,13 @@ public class BirdsController {
         return Result.success(birdsService.getBirdsById(id));
     }
 
+    //根据鸟类名称来获取鸟类信息
+    @PostMapping("/getBirdsByName")
+    public Result<Birds> getBirdsByName(String name)
+    {
+        return Result.success(birdsService.getBirdsByName(name));
+    }
+
     //添加鸟类
     @PostMapping("/addBirds")
     public Result addBirds(@Validated(Birds.Add.class) Birds birds)
