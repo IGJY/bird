@@ -35,6 +35,12 @@ public class CollectionController {
         return Result.success(collectionService.getCollectionById(id));
     }
 
+    //根据birdId和UID获取收藏信息
+    @PostMapping("/getCollectionByUIDAndBirdId")
+    public Result<Collection> getCollectionByUIDAndBirdId(String UID, Long birdId) {
+        return Result.success(collectionService.getCollectionByUIDAndBirdId(UID, birdId));
+    }
+
     //添加收藏信息
     @PostMapping("/addCollection")
     public Result addCollection(Collection collection) {

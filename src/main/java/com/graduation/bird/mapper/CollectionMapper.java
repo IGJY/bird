@@ -30,4 +30,8 @@ public interface CollectionMapper {
     //根据id查询收藏
     @Select("select * from collection where id = #{id}")
     Collection getCollectionById(Long id);
+
+    //根据用户UID和鸟id查询收藏
+    @Select("select * from collection where UID = #{uid} and bird_id = #{birdId}")
+    Collection getCollectionByUIDAndBirdId(String uid, Long birdId);
 }

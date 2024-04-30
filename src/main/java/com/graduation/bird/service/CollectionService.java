@@ -19,4 +19,6 @@ public interface CollectionService {
     Boolean deleteCollection(String UID, Long birdId);
 
     Collection getCollectionById(Long id);
+
+    Collection getCollectionByUIDAndBirdId(String uid, Long birdId);
 }

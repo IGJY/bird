@@ -51,4 +51,9 @@ public class CollectionServiceImpl implements CollectionService {
         return collectionMapper.getCollectionById(id);
     }
 
+    @Override
+    public Collection getCollectionByUIDAndBirdId(String uid, Long birdId) {
+        return collectionMapper.getCollectionByUIDAndBirdId(uid, birdId);
+    }
+
 }
