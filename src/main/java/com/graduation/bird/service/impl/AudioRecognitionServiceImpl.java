@@ -26,7 +26,7 @@ public class AudioRecognitionServiceImpl implements AudioRecognitionService {
 //    private String predictionUrl;
 
     // 设置预测接口的URL
-    private final String predictionUrl = "http://10.181.6.181:5000/predict";
+    private final String predictionUrl = "http://localhost:5000/predict";
 
     @Override
     public String recognizeAudio(MultipartFile file) throws IOException {
