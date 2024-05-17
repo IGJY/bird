@@ -1,13 +1,8 @@
 package com.graduation.bird.service.impl;
 
-import com.graduation.bird.entity.PredictResult;
-import com.graduation.bird.service.AudioRecognitionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import com.graduation.bird.service.ModelService;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.*;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -17,10 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 
 @Service
-public class AudioRecognitionServiceImpl implements AudioRecognitionService {
+public class ModelServiceImpl implements ModelService {
 
 //    @Value("${prediction.url}") // 预测接口的URL，可以通过配置文件注入
 //    private String predictionUrl;
@@ -28,6 +22,10 @@ public class AudioRecognitionServiceImpl implements AudioRecognitionService {
     // 设置预测接口的URL
     private final String predictionUrl = "http://localhost:5000/predict";
 
+    // 设置模型上传接口的URL
+    private final String uploadModelUrl = "http://localhost:5000/upload_model";
+
+    //音频识别
     @Override
     public String recognizeAudio(MultipartFile file) throws IOException {
 
@@ -61,6 +59,40 @@ public class AudioRecognitionServiceImpl implements AudioRecognitionService {
         tempFile.delete();
 
         // 返回预测结果
+        return response.getBody();
+    }
+
+    //模型替换
+    @Override
+    public String uploadModel(MultipartFile file) throws IOException{
+
+        // 将 MultipartFile 转换为 File
+        File tempFile = convertMultipartFileToFile(file);
+
+        // 创建请求体，设置文件参数
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", new ByteArrayResource(file.getBytes()) {
+            @Override
+            public String getFilename() {
+                return file.getOriginalFilename();
+            }
+        });
+
+        // 设置请求头
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        // 创建请求实体
+        HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
+
+        // 发送 POST 请求
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(uploadModelUrl, HttpMethod.POST, entity, String.class);
+
+        // 删除临时文件
+        tempFile.delete();
+
+        // 返回上传结果
         return response.getBody();
     }
 

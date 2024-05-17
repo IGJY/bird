@@ -32,6 +32,8 @@ public class HistoryRecordController {
     //添加历史记录
     @PostMapping("/addHistoryRecord")
     public Result addHistoryRecord(HistoryRecord historyRecord) {
+//        //输出历史记录看一下
+//        System.out.println(historyRecord);
         return Result.success(historyRecordService.addHistoryRecord(historyRecord));
     }
 
