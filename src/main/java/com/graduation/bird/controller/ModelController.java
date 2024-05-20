@@ -99,4 +99,26 @@ public class ModelController {
 
     }
 
+    //保存鸟类音频文件到数据集文件夹中
+    @PostMapping("/save-audio")
+    public Result saveAudio(MultipartFile file, String birdNumber) {
+        String result;
+        try {
+            result = modelService.saveAudio(file,birdNumber);;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // 调用 jsonConverter 的 readValue 方法将 JSON 字符串转换为 UploadModelResult 对象
+        UploadModelResult uploadModelResult;
+        try {
+            uploadModelResult = jsonConverter.getObjectMapper().readValue(result, UploadModelResult.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to parse upload-model result", e);
+        }
+
+        return Result.success(uploadModelResult);
+
+    }
+
 }
