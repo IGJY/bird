@@ -1,5 +1,6 @@
 package com.graduation.bird.service.impl;
 
+import com.graduation.bird.entity.Result;
 import com.graduation.bird.service.ModelService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
@@ -24,6 +25,9 @@ public class ModelServiceImpl implements ModelService {
 
     // 设置模型上传接口的URL
     private final String uploadModelUrl = "http://localhost:5000/upload_model";
+
+    // 设置特征提取接口的URL
+    private final String FLASK_API_URL = "http://localhost:5000/save_MFCC";
 
     //音频识别
     @Override
@@ -94,6 +98,21 @@ public class ModelServiceImpl implements ModelService {
 
         // 返回上传结果
         return response.getBody();
+    }
+
+    @Override
+    public String extractAndSaveFeatures() throws IOException{
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> response = restTemplate.postForEntity(FLASK_API_URL, null, String.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return response.getBody();
+            } else {
+                return "Failed to extract and save features: " + response.getStatusCode();
+            }
+        } catch (Exception e) {
+            return "Error occurred: " + e.getMessage();
+        }
     }
 
     private File convertMultipartFileToFile(MultipartFile file) throws IOException {

@@ -77,4 +77,26 @@ public class ModelController {
         return Result.success(uploadModelResult);
     }
 
+    //提取特征接口
+    @PostMapping("/extract-features")
+    public Result extractFeatures() {
+        String result;
+        try {
+            result = modelService.extractAndSaveFeatures();;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // 调用 jsonConverter 的 readValue 方法将 JSON 字符串转换为 UploadModelResult 对象
+        UploadModelResult uploadModelResult;
+        try {
+            uploadModelResult = jsonConverter.getObjectMapper().readValue(result, UploadModelResult.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to parse upload-model result", e);
+        }
+
+        return Result.success(uploadModelResult);
+
+    }
+
 }
