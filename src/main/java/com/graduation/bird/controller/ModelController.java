@@ -115,7 +115,9 @@ public class ModelController {
     public Result getFeatureExtractionResult(String taskId) {
         String result = taskManager.getTaskResult(taskId);
         if (result == null) {
-            return Result.error("任务未完成或未找到");
+
+            //TODO 这里之后需要改成其他的判断标准
+            return Result.success("processing");
         }
 
         // 调用 jsonConverter 的 readValue 方法将 JSON 字符串转换为 UploadModelResult 对象
