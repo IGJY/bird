@@ -4,6 +4,7 @@ import com.graduation.bird.entity.Result;
 import com.graduation.bird.service.ModelService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -15,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class ModelServiceImpl implements ModelService {
@@ -109,17 +111,18 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public String extractAndSaveFeatures() throws IOException{
+    @Async
+    public CompletableFuture<String> extractAndSaveFeatures() throws IOException{
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.postForEntity(FLASK_API_URL, null, String.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                return response.getBody();
+                return CompletableFuture.completedFuture(response.getBody());
             } else {
-                return "Failed to extract and save features: " + response.getStatusCode();
+                return CompletableFuture.completedFuture("Failed to extract and save features: " + response.getStatusCode());
             }
         } catch (Exception e) {
-            return "Error occurred: " + e.getMessage();
+            return CompletableFuture.completedFuture("Error occurred: " + e.getMessage());
         }
     }
 
