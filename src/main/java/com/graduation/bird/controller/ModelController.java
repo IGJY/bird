@@ -55,7 +55,7 @@ public class ModelController {
 
     }
 
-    //文件上传接口
+    //模型文件上传接口
     @PostMapping("/upload-model")
     public Result uploadModel(MultipartFile file) {
         String result;
@@ -114,7 +114,29 @@ public class ModelController {
         try {
             uploadModelResult = jsonConverter.getObjectMapper().readValue(result, UploadModelResult.class);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to parse upload-model result", e);
+            throw new RuntimeException("Failed to parse save-audio result", e);
+        }
+
+        return Result.success(uploadModelResult);
+
+    }
+
+    //复制npy文件，用新的训练集替换原来的训练集
+    @PostMapping("/copy_MFCC")
+    public Result copyMfcc() {
+        String result;
+        try {
+            result = modelService.copyMfcc();;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // 调用 jsonConverter 的 readValue 方法将 JSON 字符串转换为 UploadModelResult 对象
+        UploadModelResult uploadModelResult;
+        try {
+            uploadModelResult = jsonConverter.getObjectMapper().readValue(result, UploadModelResult.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to parse copy_MFCC result", e);
         }
 
         return Result.success(uploadModelResult);

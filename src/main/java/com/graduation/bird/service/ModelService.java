@@ -14,4 +14,6 @@ public interface ModelService {
     String  extractAndSaveFeatures() throws IOException;
 
     String saveAudio(MultipartFile file, String birdNumber) throws IOException;
+
+    String copyMfcc() throws IOException;
 }

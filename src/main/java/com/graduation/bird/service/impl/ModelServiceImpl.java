@@ -34,6 +34,9 @@ public class ModelServiceImpl implements ModelService {
     //设置保存鸟类音频文件到数据集文件夹的URL
     private final String SAVE_AUDIO_URL = "http://localhost:5000/save_audio";
 
+    //设置复制npy文件的URL
+    private final String COPY_MFCC_URL = "http://localhost:5000/copy_MFCC";
+
     //音频识别
     @Override
     public String recognizeAudio(MultipartFile file) throws IOException {
@@ -159,6 +162,22 @@ public class ModelServiceImpl implements ModelService {
 
         // 返回保存结果
         return response.getBody();
+    }
+
+    //复制npy文件，用新的训练集替换原来的训练集
+    @Override
+    public String copyMfcc() throws IOException {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> response = restTemplate.postForEntity(COPY_MFCC_URL, null, String.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return response.getBody();
+            } else {
+                return "Failed to copy MFCC: " + response.getStatusCode();
+            }
+        } catch (Exception e) {
+            return "Error occurred: " + e.getMessage();
+        }
     }
 
     private File convertMultipartFileToFile(MultipartFile file) throws IOException {
