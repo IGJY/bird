@@ -14,3 +14,6 @@
 
 #### 使用说明
 数据库我使用的是我自己服务器上的，记得吧resource里的地址换成自己的数据库的就行
+模型识别的部分是另外一个项目通过消息转发来实现的不在这个项目里面
+对应的前端项目链接：https://gitee.com/igjy/bird-identification-system
+对应的python后端（模型）项目链接（私有）：https://gitee.com/igjy/bird-recognition
